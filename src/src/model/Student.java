@@ -6,7 +6,7 @@ public class Student {
 	private String name;
 	private String email;
 	private String cnp;
-	private int group;
+	private int student_group;
 	private String password;
 	
 	
@@ -16,9 +16,15 @@ public class Student {
 		this.cnp=cnp;
 		this.email=email;
 		this.name=name;
-		this.group=group;
+		this.student_group=group;
 		this.password=password;
 		
+	}
+
+
+
+	public Student() {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -84,13 +90,21 @@ public class Student {
 
 
 	public int getGroup() {
-		return group;
+		return student_group;
 	}
 
 
 
 	public void setGroup(int group) {
-		this.group = group;
+		this.student_group = group;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Student [student_id=" + student_id + ", name=" + name + ", email=" + email + ", cnp=" + cnp + ", group="
+				+ student_group + ", password=" + password + "]";
 	}
 
 	
