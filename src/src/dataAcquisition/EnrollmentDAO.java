@@ -41,7 +41,7 @@ public class EnrollmentDAO {
 	}
 	
 	
-	public Enrollment findByStudentId(int id)
+	public ArrayList<Enrollment> findAllByStudentId(int id)
 	{
 		List<Enrollment> enrollments=null;
 		
@@ -59,9 +59,8 @@ public class EnrollmentDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		if (enrollments.size()==0) return null;
-		return enrollments.get(0);
+		
+		return (ArrayList<Enrollment>) enrollments;
 	}
 	
 	public Enrollment findByCourseId(int id)

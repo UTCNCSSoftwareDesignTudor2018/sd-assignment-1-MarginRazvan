@@ -11,6 +11,10 @@ public class Exam {
 		this.date = date;
 	}
 
+	public Exam() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getCourse__id() {
 		return course__id;
 	}
