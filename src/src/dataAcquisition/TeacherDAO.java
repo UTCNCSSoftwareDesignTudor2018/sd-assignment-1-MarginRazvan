@@ -107,7 +107,7 @@ public class TeacherDAO {
 		
 	}
 	
-	public void updateStudent(Teacher teacher)
+	public void updateTeacher(Teacher teacher)
 	{
 		PreparedStatement ps;
 		try {
