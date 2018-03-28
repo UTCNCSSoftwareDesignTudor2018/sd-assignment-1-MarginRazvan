@@ -9,8 +9,7 @@ import java.util.logging.Level;
 
 public class ConnectionFactory implements DatabaseConnectionInterface {
 
-	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String DBURL = "jdbc:mysql://localhost/studentmanagement";
+	private static final String DBURL = "jdbc:mysql://localhost/studentmanagement?autoReconnect=true&useSSL=false";
 	private static final String USER = "root";
 	private static final String PASS = "root";
 	

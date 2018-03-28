@@ -24,5 +24,15 @@ public class GradeBLL {
 		}else
 			return null;
 	}
+	
+	public void insertGrade(Grade grade)
+	{
+		gradeDAO.insertGrade(grade);
+	}
+	
+	public void updateGrade(Grade grade)
+	{
+		gradeDAO.updateGrade(grade);
+	}
 
 }

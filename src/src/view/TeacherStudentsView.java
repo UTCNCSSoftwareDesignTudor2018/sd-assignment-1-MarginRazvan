@@ -26,7 +26,7 @@ public class TeacherStudentsView extends JFrame {
 		getContentPane().setLayout(null);
 		
 		this.data=data;
-		String[] columnNames = {"Student_id","Student_name"};
+		String[] columnNames = {"Student_id","Student_name","Grade"};
 		
 		table = new JTable(data,columnNames);
 		table.setFillsViewportHeight(true);

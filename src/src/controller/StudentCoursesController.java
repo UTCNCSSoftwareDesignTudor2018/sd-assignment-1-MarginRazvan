@@ -65,7 +65,7 @@ public class StudentCoursesController {
 		{
 			data1[i][0]=courses1.get(i).getCourse_id();
 			data1[i][1]=courses1.get(i).getName();
-			data1[i][2]=teacherBLL.findById(courses1.get(i).getCourse_id()).getName();
+			data1[i][2]=teacherBLL.findById(courses1.get(i).getTeacher_id()).getName();
 		}
 		
 		this.allCoursesView = new AllCoursesView(data1);

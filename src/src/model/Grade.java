@@ -55,6 +55,13 @@ public class Grade {
 	public void setStudent___id(int student___id) {
 		this.student___id = student___id;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Grade [grade=" + grade + ", course___id=" + course___id + ", student___id=" + student___id + "]";
+	}
 	
 	
 	

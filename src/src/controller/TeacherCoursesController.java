@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 import businessLogic.CoursesBLL;
 import businessLogic.ExamBLL;
+import businessLogic.GradeBLL;
 import businessLogic.StudentBLL;
 import businessLogic.TeacherBLL;
 import model.Course;
 import model.Exam;
+import model.Grade;
 import model.Student;
 import view.TeacherCoursesView;
 import view.TeacherStudentsView;
@@ -24,6 +26,7 @@ public class TeacherCoursesController {
 	private TeacherBLL teacherBLL;
 	private CoursesBLL coursesBLL;
 	private StudentBLL studentBLL;
+	private GradeBLL gradeBLL;
 	private ExamBLL examBLL;
 	
 	private TeacherCoursesView teacherCoursesView ;
@@ -36,6 +39,7 @@ public class TeacherCoursesController {
 		this.coursesBLL=new CoursesBLL();
 		this.studentBLL=new StudentBLL();
 		this.examBLL=new ExamBLL();
+		this.gradeBLL=new GradeBLL();
 		
 		
 		//{"Course_id","Course_name","Exam_Date"};
@@ -60,10 +64,46 @@ public class TeacherCoursesController {
 		this.addBackListener();
 		this.addSetExamDateListener();
 		this.addViewStudentsListener();
+		this.addsetStudentGradeListener();
+		this.addUnenrollListener();
+		this.addGenReportListener();
+		
+		
+
+		
+		
 		
 		teacherCoursesView.setVisible(true);
 		
 		
+	}
+	
+	private void setDataStudentsView()
+	{
+		int course_id = Integer.parseInt(teacherCoursesView.getCourseId());
+		//{"Student_id","Student_name","Grade"};
+		ArrayList<Student> students = studentBLL.findByCourseId(course_id); 
+		
+				
+		Object[][] data1 = new Object[students.size()][3];
+		
+		for (int i=0; i<students.size();i++)
+		{
+			data1[i][0]=students.get(i).getStudent_id();
+			data1[i][1]=students.get(i).getName();
+			
+			if (gradeBLL.findByCourseStudentId(course_id, students.get(i).getStudent_id())!=null)
+			{
+				data1[i][2]=gradeBLL.findByCourseStudentId(course_id,  students.get(i).getStudent_id()).getGrade();
+			}
+			else
+			{
+				data1[i][2]="Unmarked";
+			}
+		}
+		
+		teacherStudentsView= new TeacherStudentsView(data1);
+		this.addBackListenerStudents();
 	}
 	
 	public void addBackListener()
@@ -78,6 +118,81 @@ public class TeacherCoursesController {
 			}
 		});
 		
+	}
+	
+	public void addUnenrollListener()
+	{
+		teacherCoursesView.addUnenrollButton(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			if (teacherCoursesView.getStudentId().equals("")||teacherCoursesView.getCourseId().equals(""))
+			{
+				teacherCoursesView.showErrorMessage("Fill boxes");
+			}
+			else
+			{
+				int course_id =Integer.parseInt( teacherCoursesView.getCourseId());
+				int student_id = Integer.parseInt(teacherCoursesView.getStudentId());
+				
+				coursesBLL.unEnroll(student_id, course_id);
+				teacherCoursesView.showErrorMessage("Student Unenrolled");
+			}
+				
+			}
+		});
+	}
+	
+	public void addGenReportListener()
+	{
+		teacherCoursesView.addGenReportButton(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if (teacherCoursesView.getStudentId().equals(""))
+				{
+					teacherCoursesView.showErrorMessage("Fill box");
+				}
+				else
+				{
+					int student_id = Integer.parseInt(teacherCoursesView.getStudentId());
+					
+					System.out.println("Student Profile: \n");
+					System.out.println(studentBLL.findById(student_id).toString()+ "\n");
+					System.out.println("Enrollments\n");
+					
+					ArrayList<Course> courses = coursesBLL.findByStudentId(student_id);
+					for (int i=0;i<courses.size();i++)
+					{
+						System.out.println(courses.get(i).toString()+"\n");
+					}
+					
+					System.out.println("Grades \n");
+					
+					for (int i=0;i<courses.size();i++)
+					{
+						System.out.println(gradeBLL.findByCourseStudentId(courses.get(i).getCourse_id(), student_id).toString());
+					}
+					
+				}
+				
+				
+			}
+		});
+	}
+	
+	public void addBackListenerStudents()
+	{
+		teacherStudentsView.addBackButton(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				teacherStudentsView.setVisible(false);
+				
+			}
+		});
 	}
 	
 	public void addSetExamDateListener()
@@ -128,28 +243,49 @@ public class TeacherCoursesController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				int course_id = Integer.parseInt(teacherCoursesView.getCourseId());
-				//{"Student_id","Student_name","Grade"};
-				ArrayList<Student> students = studentBLL.findByCourseId(course_id); 
-				
-						
-				Object[][] data = new Object[students.size()][2];
-				
-				for (int i=0; i<students.size();i++)
+				if (teacherCoursesView.getCourseId().equals(""))
 				{
-					data[i][0]=students.get(i).getStudent_id();
-					data[i][1]=students.get(i).getName();
-//					if (examBLL.findByCourseId(courses.get(i).getCourse_id())!=null)
-//					{
-//						data[i][2]=examBLL.findByCourseId(courses.get(i).getCourse_id()).getDate();
-//					}else
-//					{
-//						data[i][2]="No date";
-//					}
+					teacherCoursesView.showErrorMessage("Fill course_id");
+					
+				}
+				else
+				{
+					setDataStudentsView();
+					teacherStudentsView.setVisible(true);
+				}
+			}
+		});
+	}
+	
+	public void addsetStudentGradeListener()
+	{
+		teacherCoursesView.addSetGradeButton(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if (teacherCoursesView.getGrade().equals("")||teacherCoursesView.getCourseId().equals("")||teacherCoursesView.getStudentId().equals(""))
+				{
+					teacherCoursesView.showErrorMessage("Fill all the fields");
+				}
+				else
+				{
+					int course_id = Integer.parseInt(teacherCoursesView.getCourseId());
+					int grade = Integer.parseInt(teacherCoursesView.getGrade());
+					int student_id = Integer.parseInt(teacherCoursesView.getStudentId());
+					if (gradeBLL.findByCourseStudentId(course_id, student_id)!=null)
+					{
+						Grade gradeObj = new Grade(grade,course_id,student_id);
+						gradeBLL.updateGrade(gradeObj);
+					}
+					else
+					{
+						Grade gradeObj= new Grade(grade,course_id,student_id);
+						gradeBLL.insertGrade(gradeObj);
+					}
+					teacherCoursesView.showErrorMessage("Grade Updated for Student");
 				}
 				
-				teacherStudentsView= new TeacherStudentsView(data);
-				teacherStudentsView.setVisible(true);
 			}
 		});
 	}

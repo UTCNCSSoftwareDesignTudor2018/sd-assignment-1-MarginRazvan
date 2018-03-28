@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
 import model.Exam;
 import model.Grade;
+import model.Student;
 
 public class GradeDAO {
 	
@@ -37,6 +38,48 @@ public class GradeDAO {
 		if (grades.size()==0) return null;
 		return grades.get(0);
 	}
+	
+	public void insertGrade(Grade grade)
+	{
+		PreparedStatement ps;
+		try {
+			Connection connection=ConnectionFactory.getConnection();
+			
+			ps = (PreparedStatement) connection.prepareStatement("INSERT INTO grade (grade,course___id,student___id) VALUES (?,?,?)");
+			ps.setInt(1, grade.getGrade());
+			ps.setInt(2, grade.getCourse___id());
+			ps.setInt(3, grade.getStudent___id());
+			
+			 ps.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void updateGrade(Grade grade)
+	{
+		PreparedStatement ps;
+		try {
+			Connection connection=ConnectionFactory.getConnection();
+			
+			ps = (PreparedStatement) connection.prepareStatement("UPDATE grade SET grade=? WHERE student___id=? and course___id=?");
+			ps.setInt(1, grade.getGrade());
+			ps.setInt(2, grade.getStudent___id());
+			ps.setInt(3, grade.getCourse___id());
+					
+			 ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	private List<Grade> createGrades(ResultSet resultSet) {
 		List<Grade> list = new ArrayList<Grade>();

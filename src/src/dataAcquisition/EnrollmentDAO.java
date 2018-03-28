@@ -129,6 +129,24 @@ public class EnrollmentDAO {
 		
 	}
 	
+	public void delete(int student_id,int course_id)
+	{
+		PreparedStatement ps;
+		try {
+			Connection connection=ConnectionFactory.getConnection();
+			
+			ps = (PreparedStatement) connection.prepareStatement("DELETE FROM enrollment WHERE student_id=? and course_id=?");
+			ps.setInt(1, student_id);
+			ps.setInt(2, course_id);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	private List<Enrollment> createEnrollments(ResultSet resultSet) {
 		List<Enrollment> list = new ArrayList<Enrollment>();

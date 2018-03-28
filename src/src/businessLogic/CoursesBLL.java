@@ -52,6 +52,11 @@ public class CoursesBLL {
 		enrollmentDAO.insertEnrollment(enrollment);
 	}
 	
+	public void unEnroll(int student_id,int course_id)
+	{
+		enrollmentDAO.delete(student_id, course_id);
+	}
+	
 	public ArrayList<Course> findAll()
 	{
 		return courseDAO.findAll();

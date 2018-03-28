@@ -32,6 +32,7 @@ public class TeacherCoursesView extends JFrame {
 	private JButton btnSetGrade;
 	private JLabel lblGrade;
 	private JTextField textFieldGrade;
+	private JButton btnGenReport ;
 	
 	
 	public TeacherCoursesView(Object[][] data) {
@@ -128,6 +129,11 @@ public class TeacherCoursesView extends JFrame {
 		textFieldGrade.setBounds(644, 323, 86, 37);
 		getContentPane().add(textFieldGrade);
 		
+		btnGenReport = new JButton("Generate Report");
+		btnGenReport.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnGenReport.setBounds(281, 20, 153, 44);
+		getContentPane().add(btnGenReport);
+		
 		
 		
 	}
@@ -147,6 +153,21 @@ public class TeacherCoursesView extends JFrame {
 		btnSetExamDat.addActionListener(e);
 	}
 	
+	public void addSetGradeButton(ActionListener e)
+	{
+		btnSetGrade.addActionListener(e);
+	}
+	
+	public void addUnenrollButton(ActionListener e)
+	{
+		btnUnEnroll.addActionListener(e);
+	}
+	
+	public void addGenReportButton(ActionListener e)
+	{
+		btnGenReport.addActionListener(e);
+	}
+	
 	public String getCourseId()
 	{
 		return textFieldCourseId.getText();
@@ -157,9 +178,18 @@ public class TeacherCoursesView extends JFrame {
 		return textFieldExamDate.getText();
 	}
 	
+	public String getGrade()
+	{
+		return textFieldGrade.getText();
+	}
+	
+	public String getStudentId()
+	{
+		return textFieldStudentId.getText();
+	}
+	
 	public void showErrorMessage(String text)
 	{
 		JOptionPane.showMessageDialog(null, text);
 	}
-
 }
