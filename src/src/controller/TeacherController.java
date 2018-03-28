@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import businessLogic.StudentBLL;
 import businessLogic.TeacherBLL;
+import businessLogic.TeacherBLLInterface;
 import model.Student;
 import model.Teacher;
 import view.StudentMenuView;
@@ -13,7 +14,7 @@ import view.TeacherMenuView;
 public class TeacherController {
 	
 	private TeacherMenuView teacherMenuView;
-	private TeacherBLL teacherBLL;
+	private TeacherBLLInterface teacherBLL;
 	private Teacher teacher;
 	
 	public TeacherController(TeacherBLL teacherBLL,int id)
@@ -94,7 +95,7 @@ public class TeacherController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				teacherMenuView.setVisible(false);
-				TeacherCoursesController teacherCoursesController = new TeacherCoursesController(teacher.getTeacher_id(), teacherBLL);
+				TeacherCoursesController teacherCoursesController = new TeacherCoursesController(teacher.getTeacher_id(),(TeacherBLL) teacherBLL);
 
 				
 			}

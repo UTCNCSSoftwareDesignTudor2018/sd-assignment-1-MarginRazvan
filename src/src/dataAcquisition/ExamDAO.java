@@ -9,18 +9,20 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
+import dataAcquisition.util.ExamCreator;
 import model.Course;
 import model.Exam;
 import model.Student;
+import sun.font.CreatedFontTracker;
 
-public class ExamDAO {
+public class ExamDAO implements ExamDAOInterface {
 	
 	
 	public Exam findById(int course_id)
 	{
 		List<Exam> exams=null;
 		
-		
+		ExamCreator examCreator= new ExamCreator();
 		PreparedStatement ps;
 		try {
 			Connection connection=ConnectionFactory.getConnection();
@@ -28,7 +30,8 @@ public class ExamDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM exam WHERE course__id = ?");
 			ps.setInt(1, course_id);
 			ResultSet rs = ps.executeQuery();
-			exams = createExams(rs);
+			//exams = createExams(rs);
+			exams = examCreator.createExams(rs);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -60,24 +63,24 @@ public class ExamDAO {
 	}
 	
 	
-	private List<Exam> createExams(ResultSet resultSet) {
-		List<Exam> list = new ArrayList<Exam>();
-
-			try {
-				while (resultSet.next()) {
-					Exam instance = new Exam();
-					instance.setCourse__id(resultSet.getInt("course__id"));
-					instance.setDate(resultSet.getDate("date"));
-					list.add(instance);
-					
-					}
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}				
-
-			
-		return list;
-	}
+//	private List<Exam> createExams(ResultSet resultSet) {
+//		List<Exam> list = new ArrayList<Exam>();
+//
+//			try {
+//				while (resultSet.next()) {
+//					Exam instance = new Exam();
+//					instance.setCourse__id(resultSet.getInt("course__id"));
+//					instance.setDate(resultSet.getDate("date"));
+//					list.add(instance);
+//					
+//					}
+//			} catch (SQLException e) {
+//
+//				e.printStackTrace();
+//			}				
+//
+//			
+//		return list;
+//	}
 
 }

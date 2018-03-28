@@ -8,10 +8,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import businessLogic.CoursesBLL;
+import businessLogic.CoursesBLLInterface;
 import businessLogic.ExamBLL;
+import businessLogic.ExamBLLInterface;
 import businessLogic.GradeBLL;
+import businessLogic.GradeBLLInterface;
 import businessLogic.StudentBLL;
+import businessLogic.StudentBLLInterface;
 import businessLogic.TeacherBLL;
+import businessLogic.TeacherBLLInterface;
 import model.Course;
 import model.Exam;
 import model.Grade;
@@ -23,11 +28,11 @@ public class TeacherCoursesController {
 
 	
 	private int id;
-	private TeacherBLL teacherBLL;
-	private CoursesBLL coursesBLL;
-	private StudentBLL studentBLL;
-	private GradeBLL gradeBLL;
-	private ExamBLL examBLL;
+	private TeacherBLLInterface teacherBLL;
+	private CoursesBLLInterface coursesBLL;
+	private StudentBLLInterface studentBLL;
+	private GradeBLLInterface gradeBLL;
+	private ExamBLLInterface examBLL;
 	
 	private TeacherCoursesView teacherCoursesView ;
 	private TeacherStudentsView teacherStudentsView;
@@ -113,7 +118,7 @@ public class TeacherCoursesController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				teacherCoursesView.setVisible(false);
-				TeacherController teacherController= new TeacherController(teacherBLL, id);
+				TeacherController teacherController= new TeacherController((TeacherBLL)teacherBLL, id);
 				
 			}
 		});

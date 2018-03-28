@@ -5,10 +5,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import businessLogic.CoursesBLL;
+import businessLogic.CoursesBLLInterface;
 import businessLogic.ExamBLL;
+import businessLogic.ExamBLLInterface;
 import businessLogic.GradeBLL;
+import businessLogic.GradeBLLInterface;
 import businessLogic.StudentBLL;
+import businessLogic.StudentBLLInterface;
 import businessLogic.TeacherBLL;
+import businessLogic.TeacherBLLInterface;
 import model.Course;
 import model.Exam;
 import model.Student;
@@ -23,11 +28,11 @@ public class StudentCoursesController {
 	private AllCoursesView allCoursesView;
 	private StudentGradesExamsView studentGradesExamsView;
 	private int id;
-	private StudentBLL studentBLL;
-	private CoursesBLL coursesBLL;
-	private TeacherBLL teacherBLL;
-	private ExamBLL examBLL;
-	private GradeBLL gradeBLL;
+	private StudentBLLInterface studentBLL;
+	private CoursesBLLInterface coursesBLL;
+	private TeacherBLLInterface teacherBLL;
+	private ExamBLLInterface examBLL;
+	private GradeBLLInterface gradeBLL;
 	
 	public StudentCoursesController(int id,StudentBLL studentBLL)
 	{
@@ -114,7 +119,7 @@ public class StudentCoursesController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				studentCoursesView.setVisible(false);
-				StudentController studentController= new StudentController(studentBLL, id);
+				StudentController studentController= new StudentController((StudentBLL)studentBLL, id);
 				
 			}
 		});

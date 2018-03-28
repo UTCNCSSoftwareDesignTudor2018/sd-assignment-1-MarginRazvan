@@ -9,17 +9,18 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
+import dataAcquisition.util.TeacherCreator;
 import model.Teacher;
 
 
-public class TeacherDAO {
+public class TeacherDAO implements TeacherDAOInterface {
 	
 	
 	public ArrayList<Teacher> findAll()
 	{
 		List<Teacher> teachers=null;
 		
-		
+		TeacherCreator teacherCreator=new TeacherCreator();
 		
 		try {
 		
@@ -28,8 +29,8 @@ public class TeacherDAO {
 			PreparedStatement ps= (PreparedStatement) connection.prepareStatement("SELECT * FROM teacher");
 			ResultSet rs = ps.executeQuery();
 			
-			teachers = createTeachers(rs);
-			
+			//teachers = createTeachers(rs);
+			teachers = teacherCreator.createTeachers(rs);
 			
 			
 		} catch (Exception e) {
@@ -43,7 +44,7 @@ public class TeacherDAO {
 	public Teacher findById(int id)
 	{
 		List<Teacher> teachers=null;
-		
+		TeacherCreator teacherCreator=new TeacherCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -52,8 +53,8 @@ public class TeacherDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM teacher WHERE teacher_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			teachers = createTeachers(rs);
-			
+			//teachers = createTeachers(rs);
+			teachers= teacherCreator.createTeachers(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,7 +67,7 @@ public class TeacherDAO {
 	public Teacher findByEmail(String email)
 	{
 		List<Teacher> teachers=null;
-		
+		TeacherCreator teacherCreator=new TeacherCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -75,8 +76,8 @@ public class TeacherDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM teacher WHERE email = ?");
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-			teachers = createTeachers(rs);
-			
+			//teachers = createTeachers(rs);
+			teachers = teacherCreator.createTeachers(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,27 +150,27 @@ public class TeacherDAO {
 	
 	
 	
-	private List<Teacher> createTeachers(ResultSet resultSet) {
-		List<Teacher> list = new ArrayList<Teacher>();
-
-			try {
-				while (resultSet.next()) {
-					Teacher instance = new Teacher();
-					instance.setName(resultSet.getString("name"));
-					instance.setEmail(resultSet.getString("email"));
-					instance.setPassword(resultSet.getString("password"));
-					instance.setTeacher_id(resultSet.getInt("teacher_id"));
-					
-					list.add(instance);
-					
-					}
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}				
-
-			
-		return list;
-	}
+//	private List<Teacher> createTeachers(ResultSet resultSet) {
+//		List<Teacher> list = new ArrayList<Teacher>();
+//
+//			try {
+//				while (resultSet.next()) {
+//					Teacher instance = new Teacher();
+//					instance.setName(resultSet.getString("name"));
+//					instance.setEmail(resultSet.getString("email"));
+//					instance.setPassword(resultSet.getString("password"));
+//					instance.setTeacher_id(resultSet.getInt("teacher_id"));
+//					
+//					list.add(instance);
+//					
+//					}
+//			} catch (SQLException e) {
+//
+//				e.printStackTrace();
+//			}				
+//
+//			
+//		return list;
+//	}
 
 }

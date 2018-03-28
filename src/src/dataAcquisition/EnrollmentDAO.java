@@ -9,17 +9,18 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
+import dataAcquisition.util.EnrollmentCreator;
 import model.Enrollment;
 import model.Teacher;
 
-public class EnrollmentDAO {
+public class EnrollmentDAO implements EnrollmentDAOInterface {
 	
 	
 	
 	public ArrayList<Enrollment> findAll()
 	{
 		List<Enrollment> enrollments=null;
-		
+		EnrollmentCreator enrollmentCreator= new EnrollmentCreator();
 		
 		
 		try {
@@ -29,8 +30,8 @@ public class EnrollmentDAO {
 			PreparedStatement ps= (PreparedStatement) connection.prepareStatement("SELECT * FROM enrollment");
 			ResultSet rs = ps.executeQuery();
 			
-			enrollments = createEnrollments(rs);
-			
+			//enrollments = createEnrollments(rs);
+			enrollments = enrollmentCreator.createEnrollments(rs);
 			
 			
 		} catch (Exception e) {
@@ -44,7 +45,7 @@ public class EnrollmentDAO {
 	public ArrayList<Enrollment> findAllByStudentId(int id)
 	{
 		List<Enrollment> enrollments=null;
-		
+		EnrollmentCreator enrollmentCreator= new EnrollmentCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -53,7 +54,8 @@ public class EnrollmentDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM enrollment WHERE student_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			enrollments = createEnrollments(rs);
+			//enrollments = createEnrollments(rs);
+			enrollments = enrollmentCreator.createEnrollments(rs);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -66,7 +68,7 @@ public class EnrollmentDAO {
 	public ArrayList<Enrollment> findAllByCourseId(int id)
 	{
 		List<Enrollment> enrollments=null;
-		
+		EnrollmentCreator enrollmentCreator= new EnrollmentCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -75,7 +77,8 @@ public class EnrollmentDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM enrollment WHERE course_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			enrollments = createEnrollments(rs);
+			//enrollments = createEnrollments(rs);
+			enrollments = enrollmentCreator.createEnrollments(rs);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -88,7 +91,7 @@ public class EnrollmentDAO {
 	public Enrollment findByCourseId(int id)
 	{
 		List<Enrollment> enrollments=null;
-		
+		EnrollmentCreator enrollmentCreator= new EnrollmentCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -97,8 +100,8 @@ public class EnrollmentDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM enrollment WHERE course_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			enrollments = createEnrollments(rs);
-			
+			//enrollments = createEnrollments(rs);
+			enrollments = enrollmentCreator.createEnrollments(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,25 +151,25 @@ public class EnrollmentDAO {
 	}
 	
 	
-	private List<Enrollment> createEnrollments(ResultSet resultSet) {
-		List<Enrollment> list = new ArrayList<Enrollment>();
-
-			try {
-				while (resultSet.next()) {
-					Enrollment instance = new Enrollment();
-					instance.setCourse_id(resultSet.getInt("course_id"));
-					instance.setStudent_id(resultSet.getInt("student_id"));
-					list.add(instance);
-					
-					}
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}				
-
-			
-		return list;
-	}
+//	private List<Enrollment> createEnrollments(ResultSet resultSet) {
+//		List<Enrollment> list = new ArrayList<Enrollment>();
+//
+//			try {
+//				while (resultSet.next()) {
+//					Enrollment instance = new Enrollment();
+//					instance.setCourse_id(resultSet.getInt("course_id"));
+//					instance.setStudent_id(resultSet.getInt("student_id"));
+//					list.add(instance);
+//					
+//					}
+//			} catch (SQLException e) {
+//
+//				e.printStackTrace();
+//			}				
+//
+//			
+//		return list;
+//	}
 	
 	
 

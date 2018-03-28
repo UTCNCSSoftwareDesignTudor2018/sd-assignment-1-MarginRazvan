@@ -1,11 +1,12 @@
 package businessLogic;
 
 import dataAcquisition.ExamDAO;
+import dataAcquisition.ExamDAOInterface;
 import model.Exam;
 
-public class ExamBLL {
+public class ExamBLL implements ExamBLLInterface {
 	
-	private ExamDAO examDAO;
+	private ExamDAOInterface examDAO;
 	
 	public ExamBLL()
 	{

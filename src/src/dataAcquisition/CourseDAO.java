@@ -9,16 +9,17 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
+import dataAcquisition.util.CourseCreator;
 import model.Course;
 
-public class CourseDAO {
+public class CourseDAO implements CourseDAOInterface {
 
 	
 	public ArrayList<Course> findAll()
 	{
 		List<Course> courses=null;
 		
-		
+		CourseCreator courseCreator= new CourseCreator();
 		
 		try {
 		
@@ -27,8 +28,8 @@ public class CourseDAO {
 			PreparedStatement ps= (PreparedStatement) connection.prepareStatement("SELECT * FROM course");
 			ResultSet rs = ps.executeQuery();
 			
-			courses = createCourses(rs);
-			
+			//courses = createCourses(rs);
+			courses = courseCreator.createCourses(rs);
 			
 			
 		} catch (Exception e) {
@@ -41,7 +42,7 @@ public class CourseDAO {
 	public ArrayList<Course> findAllByTeacherId(int id)
 	{
 		List<Course> courses=null;
-		
+		CourseCreator courseCreator= new CourseCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -50,8 +51,8 @@ public class CourseDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM course WHERE teacher_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			courses = createCourses(rs);
-			
+			//courses = createCourses(rs);
+			courses= courseCreator.createCourses(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +66,7 @@ public class CourseDAO {
 	public Course findByCourseId(int id)
 	{
 		List<Course> courses=null;
-		
+		CourseCreator courseCreator= new CourseCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -74,8 +75,8 @@ public class CourseDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM course WHERE course_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			courses = createCourses(rs);
-			
+			//courses = createCourses(rs);
+			courses = courseCreator.createCourses(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,7 +89,7 @@ public class CourseDAO {
 	public Course findByTeacherId(int id)
 	{
 		List<Course> courses=null;
-		
+		CourseCreator courseCreator= new CourseCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -97,7 +98,8 @@ public class CourseDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM course WHERE course_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			courses = createCourses(rs);
+			//courses = createCourses(rs);
+			courses = courseCreator.createCourses(rs);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -131,26 +133,26 @@ public class CourseDAO {
 	}
 	
 	
-	private List<Course> createCourses(ResultSet resultSet) {
-		List<Course> list = new ArrayList<Course>();
-
-			try {
-				while (resultSet.next()) {
-					Course instance = new Course();
-					instance.setCourse_id(resultSet.getInt("course_id"));
-					instance.setName(resultSet.getString("name"));
-					instance.setTeacher_id(resultSet.getInt("teacher_id"));
-					list.add(instance);
-					
-					}
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}				
-
-			
-		return list;
-	}
+//	private List<Course> createCourses(ResultSet resultSet) {
+//		List<Course> list = new ArrayList<Course>();
+//
+//			try {
+//				while (resultSet.next()) {
+//					Course instance = new Course();
+//					instance.setCourse_id(resultSet.getInt("course_id"));
+//					instance.setName(resultSet.getString("name"));
+//					instance.setTeacher_id(resultSet.getInt("teacher_id"));
+//					list.add(instance);
+//					
+//					}
+//			} catch (SQLException e) {
+//
+//				e.printStackTrace();
+//			}				
+//
+//			
+//		return list;
+//	}
 	
 	
 }

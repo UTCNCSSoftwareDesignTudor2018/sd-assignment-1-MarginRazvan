@@ -9,16 +9,17 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
+import dataAcquisition.util.GradeCreator;
 import model.Exam;
 import model.Grade;
 import model.Student;
 
-public class GradeDAO {
+public class GradeDAO implements GradeDAOInterface {
 	
 	public Grade findById(int course_id,int student_id)
 	{
 		List<Grade> grades=null;
-		
+		GradeCreator gradeCreator = new GradeCreator();
 		
 		PreparedStatement ps;
 		try {
@@ -28,7 +29,8 @@ public class GradeDAO {
 			ps.setInt(1, course_id);
 			ps.setInt(2,student_id);
 			ResultSet rs = ps.executeQuery();
-			grades = createGrades(rs);
+			//grades = createGrades(rs);
+			grades = gradeCreator.createGrades(rs);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,25 +83,25 @@ public class GradeDAO {
 	
 	
 	
-	private List<Grade> createGrades(ResultSet resultSet) {
-		List<Grade> list = new ArrayList<Grade>();
-
-			try {
-				while (resultSet.next()) {
-					Grade instance = new Grade();
-					instance.setCourse___id(resultSet.getInt("course___id"));
-					instance.setGrade(resultSet.getInt("grade"));
-					instance.setStudent___id(resultSet.getInt("student___id"));
-					list.add(instance);
-					
-					}
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}				
-
-			
-		return list;
-	}
+//	private List<Grade> createGrades(ResultSet resultSet) {
+//		List<Grade> list = new ArrayList<Grade>();
+//
+//			try {
+//				while (resultSet.next()) {
+//					Grade instance = new Grade();
+//					instance.setCourse___id(resultSet.getInt("course___id"));
+//					instance.setGrade(resultSet.getInt("grade"));
+//					instance.setStudent___id(resultSet.getInt("student___id"));
+//					list.add(instance);
+//					
+//					}
+//			} catch (SQLException e) {
+//
+//				e.printStackTrace();
+//			}				
+//
+//			
+//		return list;
+//	}
 
 }

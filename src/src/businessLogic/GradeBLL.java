@@ -1,12 +1,13 @@
 package businessLogic;
 
 import dataAcquisition.GradeDAO;
+import dataAcquisition.GradeDAOInterface;
 import model.Exam;
 import model.Grade;
 
-public class GradeBLL {
+public class GradeBLL implements GradeBLLInterface{
 	
-	private GradeDAO gradeDAO;
+	private GradeDAOInterface gradeDAO;
 	
 	public GradeBLL()
 	{

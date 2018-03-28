@@ -6,15 +6,17 @@ import java.util.ArrayList;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import dataAcquisition.CourseDAO;
+import dataAcquisition.CourseDAOInterface;
 import dataAcquisition.EnrollmentDAO;
+import dataAcquisition.EnrollmentDAOInterface;
 import dataAcquisition.StudentDAO;
 import model.Course;
 import model.Enrollment;
 
-public class CoursesBLL {
+public class CoursesBLL implements CoursesBLLInterface {
 	
-	private CourseDAO courseDAO;
-	private EnrollmentDAO enrollmentDAO;
+	private CourseDAOInterface courseDAO;
+	private EnrollmentDAOInterface enrollmentDAO;
 	
 	
 	public CoursesBLL()

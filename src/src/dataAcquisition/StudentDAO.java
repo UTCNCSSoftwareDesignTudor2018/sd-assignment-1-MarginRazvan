@@ -10,16 +10,17 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import connection.ConnectionFactory;
+import dataAcquisition.util.StudentCreator;
 import model.Student;
 
-public class StudentDAO {
+public class StudentDAO implements StudentDAOInterface {
 	
 
 	
 	public ArrayList<Student> findAll()
 	{
 		List<Student> students=null;
-		
+		StudentCreator studentCreator = new StudentCreator(); 
 		
 		
 		try {
@@ -29,8 +30,8 @@ public class StudentDAO {
 			PreparedStatement ps= (PreparedStatement) connection.prepareStatement("SELECT * FROM student");
 			ResultSet rs = ps.executeQuery();
 			
-			students = createStudents(rs);
-			
+			//students = createStudents(rs);
+			students = studentCreator.createStudents(rs);
 			
 			
 		} catch (Exception e) {
@@ -44,7 +45,7 @@ public class StudentDAO {
 	public Student findById(int id)
 	{
 		List<Student> students=null;
-		
+		StudentCreator studentCreator = new StudentCreator(); 
 		
 		PreparedStatement ps;
 		try {
@@ -53,8 +54,8 @@ public class StudentDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM student WHERE student_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			students = createStudents(rs);
-			
+			//students = createStudents(rs);
+			students = studentCreator.createStudents(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,7 +68,7 @@ public class StudentDAO {
 	public Student findByEmail(String email)
 	{
 		List<Student> students=null;
-		
+		StudentCreator studentCreator = new StudentCreator(); 
 		
 		PreparedStatement ps;
 		try {
@@ -76,8 +77,8 @@ public class StudentDAO {
 			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM student WHERE email = ?");
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-			students = createStudents(rs);
-			
+			//students = createStudents(rs);
+			students = studentCreator.createStudents(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,34 +150,6 @@ public class StudentDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	
-	
-	
-	private List<Student> createStudents(ResultSet resultSet) {
-		List<Student> list = new ArrayList<Student>();
-
-			try {
-				while (resultSet.next()) {
-					Student instance = new Student();
-					instance.setName(resultSet.getString("name"));
-					instance.setEmail(resultSet.getString("email"));
-					instance.setCnp(resultSet.getString("cnp"));
-					instance.setPassword(resultSet.getString("password"));
-					instance.setGroup(resultSet.getInt("student_group"));
-					instance.setStudent_id(resultSet.getInt("student_id"));
-					
-					list.add(instance);
-					
-					}
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}				
-
-			
-		return list;
 	}
 
 }

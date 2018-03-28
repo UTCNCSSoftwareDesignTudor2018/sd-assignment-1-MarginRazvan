@@ -1,12 +1,13 @@
 package businessLogic;
 
 import dataAcquisition.TeacherDAO;
+import dataAcquisition.TeacherDAOInterface;
 import model.Student;
 import model.Teacher;
 
-public class TeacherBLL {
+public class TeacherBLL implements TeacherBLLInterface {
 	
-	private TeacherDAO teacherDAO;
+	private TeacherDAOInterface teacherDAO;
 	
 	public TeacherBLL()
 	{

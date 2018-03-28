@@ -4,13 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import businessLogic.StudentBLL;
+import businessLogic.StudentBLLInterface;
 import model.Student;
 import view.StudentMenuView;
 
 public class StudentController {
 	
 	private StudentMenuView studentMenuView;
-	private StudentBLL studentBLL;
+	private StudentBLLInterface studentBLL;
 	private Student student;
 	
 	public StudentController(StudentBLL studentBLL,int id)
@@ -93,7 +94,7 @@ public class StudentController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				studentMenuView.setVisible(false);
-				StudentCoursesController studentCoursesController=new StudentCoursesController(student.getStudent_id(), studentBLL);
+				StudentCoursesController studentCoursesController=new StudentCoursesController(student.getStudent_id(),(StudentBLL) studentBLL);
 				
 			}
 		});

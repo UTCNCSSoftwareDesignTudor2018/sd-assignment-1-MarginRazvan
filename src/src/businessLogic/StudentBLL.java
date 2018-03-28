@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 import dataAcquisition.EnrollmentDAO;
 import dataAcquisition.StudentDAO;
+import dataAcquisition.StudentDAOInterface;
 import model.Course;
 import model.Enrollment;
 import model.Student;
 
-public class StudentBLL {
+public class StudentBLL implements StudentBLLInterface {
 	
 	
-	private StudentDAO studentdao;
+	private StudentDAOInterface studentdao;
 	private EnrollmentDAO enrollmentDAO;
 	
 	

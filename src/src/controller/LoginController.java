@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import businessLogic.StudentBLL;
+import businessLogic.StudentBLLInterface;
 import businessLogic.TeacherBLL;
+import businessLogic.TeacherBLLInterface;
 import model.Student;
 import model.Teacher;
 import view.LoginView;
@@ -13,8 +15,8 @@ import view.StudentMenuView;
 public class LoginController {
 	
 	private LoginView loginView;
-	private StudentBLL studentBLL;
-	private TeacherBLL teacherBLL;
+	private StudentBLLInterface studentBLL;
+	private TeacherBLLInterface teacherBLL;
 	
 	public LoginController()
 	{
@@ -44,7 +46,7 @@ public class LoginController {
 				{
 					Student student=studentBLL.findByEmail(email);
 					loginView.setVisible(false);
-					StudentController studentController= new StudentController(studentBLL, student.getStudent_id());
+					StudentController studentController= new StudentController((StudentBLL)studentBLL, student.getStudent_id());
 					System.out.println("OK");
 				}
 				else
@@ -69,7 +71,7 @@ public class LoginController {
 				{
 					Teacher teacher=teacherBLL.findByEmail(email);
 					loginView.setVisible(false);
-					TeacherController teacherController= new TeacherController(teacherBLL, teacher.getTeacher_id());
+					TeacherController teacherController= new TeacherController((TeacherBLL)teacherBLL, teacher.getTeacher_id());
 					System.out.println("OK");
 				}
 				else
