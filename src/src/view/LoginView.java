@@ -58,7 +58,7 @@ public class LoginView extends JFrame {
 		btnLoginStudent.setBounds(43, 221, 140, 52);
 		getContentPane().add(btnLoginStudent);
 		
-		JButton buttonLoginTeacher = new JButton("Login Teacher");
+		buttonLoginTeacher = new JButton("Login Teacher");
 		buttonLoginTeacher.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		buttonLoginTeacher.setBounds(228, 221, 140, 52);
 		getContentPane().add(buttonLoginTeacher);

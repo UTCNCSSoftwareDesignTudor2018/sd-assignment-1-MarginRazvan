@@ -38,6 +38,29 @@ public class CourseDAO {
 		return (ArrayList<Course>) courses;
 	}
 	
+	public ArrayList<Course> findAllByTeacherId(int id)
+	{
+		List<Course> courses=null;
+		
+		
+		PreparedStatement ps;
+		try {
+			Connection connection=ConnectionFactory.getConnection();
+			
+			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM course WHERE teacher_id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			courses = createCourses(rs);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (courses.size()==0) return null;
+		return (ArrayList<Course>) courses;
+	}
+	
 	
 	public Course findByCourseId(int id)
 	{

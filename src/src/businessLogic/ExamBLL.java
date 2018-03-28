@@ -24,4 +24,9 @@ public class ExamBLL {
 			return null;
 	}
 	
+	public void updateExamDate(Exam exam)
+	{
+		examDAO.insertExam(exam);
+	}
+	
 }

@@ -1,17 +1,38 @@
 package businessLogic;
 
+import java.util.ArrayList;
+
+import dataAcquisition.EnrollmentDAO;
 import dataAcquisition.StudentDAO;
+import model.Course;
+import model.Enrollment;
 import model.Student;
 
 public class StudentBLL {
 	
 	
 	private StudentDAO studentdao;
+	private EnrollmentDAO enrollmentDAO;
 	
 	
 	public StudentBLL()
 	{
 		studentdao = new StudentDAO();
+		enrollmentDAO= new EnrollmentDAO();
+	}
+	
+	public ArrayList<Student> findByCourseId(int id)
+	{
+		ArrayList<Student> students = new ArrayList<Student>();
+		ArrayList<Enrollment> enrollments =  enrollmentDAO.findAllByCourseId(id);
+		
+		for (int i=0; i<enrollments.size();i++)
+		{
+			Student s = studentdao.findById(enrollments.get(i).getStudent_id()); 
+			students.add(s);
+		}
+		
+		return students;
 	}
 	
 	

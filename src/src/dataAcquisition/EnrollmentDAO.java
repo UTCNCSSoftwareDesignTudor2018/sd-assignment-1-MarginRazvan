@@ -63,6 +63,28 @@ public class EnrollmentDAO {
 		return (ArrayList<Enrollment>) enrollments;
 	}
 	
+	public ArrayList<Enrollment> findAllByCourseId(int id)
+	{
+		List<Enrollment> enrollments=null;
+		
+		
+		PreparedStatement ps;
+		try {
+			Connection connection=ConnectionFactory.getConnection();
+			
+			ps = (PreparedStatement) connection.prepareStatement("SELECT * FROM enrollment WHERE course_id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			enrollments = createEnrollments(rs);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return (ArrayList<Enrollment>) enrollments;
+	}
+	
 	public Enrollment findByCourseId(int id)
 	{
 		List<Enrollment> enrollments=null;

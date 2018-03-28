@@ -16,6 +16,7 @@ public class CoursesBLL {
 	private CourseDAO courseDAO;
 	private EnrollmentDAO enrollmentDAO;
 	
+	
 	public CoursesBLL()
 	{
 		this.courseDAO = new CourseDAO();
@@ -32,6 +33,13 @@ public class CoursesBLL {
 			Course c = courseDAO.findByCourseId(enrollments.get(i).getCourse_id());
 			courses.add(c);
 		}
+		
+		return courses;
+	}
+	
+	public ArrayList<Course> findAllByTeacherId(int id)
+	{
+		ArrayList<Course> courses = courseDAO.findAllByTeacherId(id);
 		
 		return courses;
 	}

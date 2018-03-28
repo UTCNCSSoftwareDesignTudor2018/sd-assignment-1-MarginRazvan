@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 import connection.ConnectionFactory;
 import model.Course;
 import model.Exam;
+import model.Student;
 
 public class ExamDAO {
 	
@@ -36,6 +37,26 @@ public class ExamDAO {
 
 		if (exams.size()==0) return null;
 		return exams.get(0);
+	}
+	
+	public void insertExam(Exam exam)
+	{
+		PreparedStatement ps;
+		try {
+			Connection connection=ConnectionFactory.getConnection();
+			
+			ps = (PreparedStatement) connection.prepareStatement("INSERT INTO exam (course__id,date) VALUES (?,?)");
+			ps.setInt(1, exam.getCourse__id());
+			ps.setDate(2, exam.getDate());
+			
+			 ps.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
