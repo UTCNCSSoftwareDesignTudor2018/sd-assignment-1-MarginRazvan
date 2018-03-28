@@ -6,6 +6,8 @@ public interface ExamBLLInterface {
 	
 	public Exam findByCourseId(int id);
 	
-	public void updateExamDate(Exam exam);
+	public void insertExam(Exam exam);
+	
+	public void updateExam(Exam exam);
 
 }

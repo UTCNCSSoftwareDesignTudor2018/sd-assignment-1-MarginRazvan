@@ -220,11 +220,18 @@ public class TeacherCoursesController {
 						java.util.Date date= sdf.parse(examDate);
 						Date sqlDate = new Date(date.getTime());
 						
-						Exam exam =new Exam();
-						exam.setCourse__id(Integer.parseInt(course_id));
-						exam.setDate(sqlDate);
+						int course__id=Integer.parseInt(course_id);
 						
-						examBLL.updateExamDate(exam);
+						if (examBLL.findByCourseId(course__id)!=null)
+						{
+							Exam examObj = new Exam(course__id, sqlDate);
+							examBLL.updateExam(examObj);
+						}
+						else
+						{
+							Exam examObj = new Exam(course__id, sqlDate);
+							examBLL.insertExam(examObj);
+						}
 						
 						teacherCoursesView.showErrorMessage("Exam Date Updated");
 						

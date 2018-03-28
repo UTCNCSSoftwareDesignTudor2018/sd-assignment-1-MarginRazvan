@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 
-public class ConnectionFactory implements DatabaseConnectionInterface {
+public class ConnectionFactory {
 
 	private static final String DBURL = "jdbc:mysql://localhost/studentmanagement?autoReconnect=true&useSSL=false";
 	private static final String USER = "root";
@@ -21,7 +21,7 @@ public class ConnectionFactory implements DatabaseConnectionInterface {
 	}
 
 	
-	@Override
+
 	public Connection connect() {
 		Connection connection = null;
 		try {

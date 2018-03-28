@@ -12,6 +12,7 @@ import dataLayer.connection.ConnectionFactory;
 import dataLayer.dataAcquisition.util.ExamCreator;
 import dataLayer.model.Course;
 import dataLayer.model.Exam;
+import dataLayer.model.Grade;
 import dataLayer.model.Student;
 import sun.font.CreatedFontTracker;
 
@@ -60,6 +61,23 @@ public class ExamDAO implements ExamDAOInterface {
 		}
 		
 		
+	}
+	
+	public void updateExam(Exam exam)
+	{
+		PreparedStatement ps;
+		try {
+			Connection connection=ConnectionFactory.getConnection();
+			
+			ps = (PreparedStatement) connection.prepareStatement("UPDATE exam SET date=? WHERE course__id=?");
+			ps.setDate(1, exam.getDate());
+			ps.setInt(2, exam.getCourse__id());
+			 ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

@@ -8,6 +8,8 @@ public interface ExamDAOInterface {
 	
 	public void insertExam(Exam exam);
 	
+	public void updateExam(Exam exam);
+	
 	
 
 }
