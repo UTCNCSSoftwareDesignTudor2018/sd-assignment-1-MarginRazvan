@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import businessLayer.controller.LoginController;
 import dataLayer.connection.ConnectionFactory;
 import dataLayer.dataAcquisition.StudentDAO;
 import dataLayer.model.Student;
+import presentationLayer.controller.LoginController;
 
 public class Main {
 
