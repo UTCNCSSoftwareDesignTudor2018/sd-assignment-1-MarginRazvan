@@ -3,6 +3,7 @@ package businessLayer.businessLogic;
 import java.util.ArrayList;
 
 import dataLayer.dataAcquisition.EnrollmentDAO;
+import dataLayer.dataAcquisition.EnrollmentDAOInterface;
 import dataLayer.dataAcquisition.StudentDAO;
 import dataLayer.dataAcquisition.StudentDAOInterface;
 import dataLayer.model.Course;
@@ -13,7 +14,7 @@ public class StudentBLL implements StudentBLLInterface {
 	
 	
 	private StudentDAOInterface studentdao;
-	private EnrollmentDAO enrollmentDAO;
+	private EnrollmentDAOInterface enrollmentDAO;
 	
 	
 	public StudentBLL()
